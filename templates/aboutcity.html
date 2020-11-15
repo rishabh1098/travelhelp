@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+        #carouselimg {
+            height: 550px;
+        }
+
+        #floatleft {
+            float: left;
+            z-index: 9999;
+            margin-top: -20%;
+            margin-left: 10%;
+            display: inline;
+        }
+
+        @media only screen and (max-width: 500px) {
+            #carouselimg {
+                height: 200px;
+            }
+
+            #floatleft {
+                margin-top: auto;
+                margin-left: auto;
+
+            }
+
+        }
+
+        @media only screen and (min-width: 500px) and (max-width: 1200px) {
+            #carouselimg {
+                height: 450px;
+            }
+
+            #floatleft {
+                float: left;
+                z-index: 9999;
+                margin: auto;
+
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" id="carouselimg" src="/media/{{info.0.image}}" alt="First slide">
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-4 " id="floatleft">
+        <!-- Card -->
+        <div class="card" style="width: auto;">
+            <div class="card-body">
+                <h5 class="card-title">Weather Info!</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{city}}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">{{today}}</h6>
+                <p class="card-text">{{temperature}}</p>
+                <p class="card-text">{{description}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Best In {{city}} </h1>
+    </div>
+    <section id="gallery">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <img src="/media/{{info.0.image}}" alt="" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Best {{info.0.info}}</h5>
+                            <p class="card-text">{{info.0.content}}</p>
+                            <form action="abouthotels" method="POST">{% csrf_token %}
+                                <input type="hidden" id="city_name" value="{{city}}" name="city_name">
+                                <button type="submit" id="btnloc" class="btn btn-primary">Read More</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <img src="/media/{{info.1.image}}" alt="" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{info.1.info}}</h5>
+                            <p class="card-text">{{info.1.content}}</p>
+                            <form action="aboutplaces" method="POST">{% csrf_token %}
+                                <input type="hidden" id="city_name" value="{{city}}" name="city_name">
+                                <button type="submit" id="btnloc" class="btn btn-primary">Read More</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        <img src="/media/{{info.2.image}}" alt="" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{info.2.info}}</h5>
+                            <p class="card-text">{{info.2.content}}</p>
+                            <form action="aboutstreetfood" method="POST">{% csrf_token %}
+                                <input type="hidden" id="city_name" value="{{city}}" name="city_name">
+                                <button type="submit" id="btnloc" class="btn btn-primary">Read More</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+    </section>
+    </div>
+</body>
+
+</html>

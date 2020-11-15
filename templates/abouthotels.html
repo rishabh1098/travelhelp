@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        #carouselimg {
+            height: 550px;
+            width: 80%;
+            align-self: center;
+        }
+
+        .container {
+            width: 1000px;
+        }
+
+        @media only screen and (max-width: 500px) {
+            #carouselimg {
+                height: 200px;
+            }
+
+            .container {
+                width: 100%;
+            }
+        }
+
+        @media only screen and (min-width: 500px) and (max-width: 1200px) {
+            #carouselimg {
+                height: 450px;
+            }
+
+            .container {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    {% for i in info %}
+    <div class="container">
+        <div class="card mb-1">
+            <h2 class="card-header bg-transparent border">{{i.heading}}</h2>
+            <img class="card-img-top" id="carouselimg" src="/media/{{i.image}}" alt="Card image cap">
+            <div class="card-body">
+                <text class="font-weight-bold">{{i.content}}</text>
+                <h4 class="card-footer bg-transparent border-success">Location: {{i.location}}</h4>
+                <p class="card-text"><small class="text-muted">Last updated a day ago</small></p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
