@@ -8,12 +8,14 @@ from aboutcity.models import aboutcity
 from hotels.models import hotels
 from places.models import places
 from streetfood.models import streetfood
-
+from cities.models import cities
+import pytz 
 
 def index(request):
     if request.method == "POST":
         city = request.POST.get('city', '')
-        today = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+        IST = pytz.timezone('Asia/Kolkata') 
+        today = datetime.datetime.now(IST).strftime("%I:%M%p %B %d, %Y")
         url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=b5daf570427aa784d3cd32a6d5a3e514'
         r = requests.get(url.format(city)).json()
         print(r)
@@ -40,7 +42,8 @@ def knowmore(request):
     if request.method == "GET":
         city_name = request.GET.get('city_name', '')
         print(city_name)
-        today = datetime.datetime.now().strftime("%I:%M%p on %B %d, %Y")
+        IST = pytz.timezone('Asia/Kolkata') 
+        today = datetime.datetime.now(IST).strftime("%I:%M%p %B %d, %Y")
         url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=b5daf570427aa784d3cd32a6d5a3e514'
         r = requests.get(url.format(city_name)).json()
         tempf = int(r["main"]["temp"])
@@ -53,8 +56,9 @@ def knowmore(request):
                         'description': r["weather"][0]["description"],
                         }
         print(city_weather)
+        cityinf = cities.objects.filter(cityname=city_name)
         inf = aboutcity.objects.filter(cityname=city_name)
-        params = {'info': inf,'city': city_name, 'today': today, 'temperature': tempc,
+        params = {'cityinf': cityinf,'info': inf,'city': city_name, 'today': today, 'temperature': tempc,
             'description': r["weather"][0]["description"]}
         print(len(inf))
         print(params)
@@ -81,7 +85,7 @@ def aboutplaces(request):
 def aboutstreetfood(request):
     if request.method == "POST":
         city_name = request.POST.get('city_name', '')
-        foodinfo = places.objects.filter(cityname=city_name)
+        foodinfo = streetfood.objects.filter(cityname=city_name)
         params = {'info': foodinfo}
         return render(request, 'aboutstreetfood.html', params)
     return render(request, 'aboutstreetfood.html')    

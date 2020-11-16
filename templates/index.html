@@ -12,31 +12,99 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <!-- Demo styles -->
+    <style>
+        #swiperimg {
+            height: 90%;
+            width: 90%;
+        }
+
+        .swiper-container {
+            width: 100%;
+            height: auto;
+        }
+
+        .swiper-slide {
+            text-align: center;
+            font-size: 18px;
+            background: #fff;
+
+            /* Center slide text vertically */
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            -webkit-align-items: center;
+            align-items: center;
+        }
+    </style>
     <style>
         #float-right {
             float: right;
             margin-right: 20%;
             z-index: 9999;
-            margin-top: -25%;
+            margin-top: -20%;
+        }
+
+        #display {
+            display: none;
         }
 
         #floatleft {
             float: left;
             z-index: 9999;
-            margin-top: -25%;
+            margin-top: -22%;
             margin-left: 10%;
             display: inline;
         }
 
         #imgheight {
-            height: 550px;
+            height: 500px;
+
         }
 
         #btnloc {
-            margin-top: -62px;
-            margin-left: 150px;
+            margin-top: -64px;
+            margin-left: 140px;
 
         }
+
+        .swiper-button-prev {
+            z-index: 99999;
+            color: black;
+            width: 50px;
+            height: 50px;
+            margin-left: -20px;
+            background: white;
+            -moz-border-radius: 70px;
+            -webkit-border-radius: 70px;
+            border-radius: 70px;
+
+        }
+
+        .swiper-button-next {
+            color: black;
+            width: 50px;
+            height: 50px;
+            margin-right: -20px;
+            background: white;
+            -moz-border-radius: 70px;
+            -webkit-border-radius: 70px;
+            border-radius: 70px;
+
+        }
+
 
         @media only screen and (max-width: 500px) {
             #floatleft {
@@ -56,9 +124,37 @@
             }
 
             #btnloc {
-                margin-top: -65px;
-                margin-left: 130px;
+                margin-top: -66px;
+                margin-left: 125px;
 
+            }
+
+            #swiperimg {
+                height: 170px;
+                width: 100%;
+            }
+
+            .swiper-container {
+                width: 100%;
+                height: auto;
+            }
+
+            .swiper-button-next {
+                display: none;
+            }
+
+            .swiper-button-prev {
+                display: none;
+            }
+        }
+
+        @media only screen and (min-width: 500px) and (max-width: 700px) {
+            .swiper-button-next {
+                display: none;
+            }
+
+            .swiper-button-prev {
+                display: none;
             }
         }
 
@@ -85,6 +181,11 @@
                 margin-top: -65px;
                 margin-left: 135px;
 
+            }
+
+            #swiperimg {
+                height: 150px;
+                width: 80%;
             }
         }
     </style>
@@ -137,13 +238,13 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img id="imgheight" src='{% static "gwalior.jpg" %}' class="d-block w-100" alt="...">
+                <img id="imgheight" src='{% static "main1.jpg" %}' class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img id="imgheight" src='{% static "gwalior2.png" %}' class="d-block w-100" alt="...">
+                <img id="imgheight" src='{% static "main2.jpg" %}' class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-                <img id="imgheight" src='{% static "gwalior3.jpg" %}' class="d-block w-100" alt="...">
+                <img id="imgheight" src='{% static "main3.jpg" %}' class="d-block w-100" alt="...">
             </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -159,7 +260,8 @@
         <form name="myForm" method="post" id="weatherform">{% csrf_token %}
             <div class="form-group">
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">city select</label>
+                    <label for="exampleFormControlSelect1"
+                        style="font-family: 'Anton', sans-serif; font-size: large; color:white;">Select City</label>
                     <select class="form-control" id="cityname" onchange="myFunction()" name="city">
                         <option>Gwalior</option>
                         <option>Indore</option>
@@ -169,22 +271,24 @@
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">checkweather</button>
+            <button type="submit" class="btn btn-primary">weather info!</button>
         </form>
         <form action="knowmore" method="get" id="knowform">{% csrf_token %}
-            <input type="hidden"  id="city_name" value="Gwalior" name="city_name" >
-            <button type="submit" id="btnloc" class="btn btn-primary">Knowmore</button>
+            <input type="hidden" id="city_name" value="Gwalior" name="city_name">
+            <button type="submit" id="btnloc" class="btn btn-primary">Know more</button>
         </form>
 
     </div>
 
     <div class="col-lg-3 col-md-4 " id="floatleft">
         <!-- Card -->
-        <h3>Get Your Weather Info!</h3>
-        <div class="container">
-            <!-- Card content -->
-            <div class="card-body pb-1">
-                <h5 id="city"></h5>
+        <div class="card border
+         mb-4" id="display" style="max-width: 18rem;">
+            <div class="card-header">
+                <h2 id="weatherinfo"></h2>
+            </div>
+            <div class="card-body text" style="font-family:'Varela Round',sans-serif;">
+                <h5 class="card-title" id="city"></h5>
                 <p class="card-text" id="date"></p>
                 <p id="temp"></p>
                 <p id="desc"></p>
@@ -193,7 +297,291 @@
         <!-- Card -->
     </div>
 
+    <div class="container mt-5 ">
+        <h2>
+            Places You Must Visit In India Once in a lifetime.
+        </h2>
+        <h6>Escape the city with special days out close to home</h6>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+    <div class="container mt-5 ">
+        <h2>
+            Cities You Must Visit Once in a lifetime
+        </h2>
+        <h6>Escape the city with special days out close to home</h6>
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <div class="card" style="width: 18rem;">
+                        <img class="card-img-top" src='{% static "main1.jpg" %}' alt="Card image cap">
+                        <div class="card-body">
+                            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+                            <h6 class="card-text">Some quick example text to build on the card title and make up </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Add Arrows -->
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+    <!-- Swiper -->
 
+
+    <!-- Swiper JS -->
+    <script src="../package/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+        if (document.documentElement.clientWidth < 700) {
+            var swiper = new Swiper('.swiper-container', {
+                slidesPerView: 2,
+                spaceBetween: 10,
+                slidesPerGroup: 2,
+                loop: true,
+                loopFillGroupWithBlank: true,
+
+            });
+
+        }
+        else {
+            var swiper = new Swiper('.swiper-container', {
+                slidesPerView: 4,
+                spaceBetween: 10,
+                slidesPerGroup: 4,
+                loop: true,
+                loopFillGroupWithBlank: true,
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+        }
+
+    </script>
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
@@ -221,10 +609,13 @@
                 data = JSON.parse(data);
                 updates = data;
                 console.log(updates)
+                document.getElementById('weatherinfo').innerHTML = "Weather Info!";
                 document.getElementById('city').innerHTML = "";
                 document.getElementById('date').innerHTML = "";
                 document.getElementById('temp').innerHTML = "";
                 document.getElementById('desc').innerHTML = "";
+                var x = document.getElementById('display');
+                x.style.display = "block";
                 if (updates.length > 0 & updates != {}) {
                     let text0 = updates[0]['city'];
                     let text1 = updates[1]['today'];
@@ -239,7 +630,7 @@
                             </li>`
                     $('#date').append(date);
                     temp = `<li class="list-group-item d-flex justify-content-between align-items-center">
-                                ${text2}
+                                ${text2} °C
                             </li>`
                     $('#temp').append(temp);
                     desc = `<li class="list-group-item d-flex justify-content-between align-items-center">
@@ -261,9 +652,9 @@
 <script>
     function myFunction() {
         var x = document.getElementById("cityname").value;
-         document.getElementById("city_name").value = x;
+        document.getElementById("city_name").value = x;
     }
-    
+
 </script>
 
 </html>

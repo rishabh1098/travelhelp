@@ -11,16 +11,24 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 
+    <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <style>
         #carouselimg {
             height: 550px;
         }
 
+        #info {
+            text-transform: uppercase;
+        }
+
         #floatleft {
             float: left;
             z-index: 9999;
-            margin-top: -20%;
+            margin-top: -30%;
             margin-left: 10%;
             display: inline;
         }
@@ -59,7 +67,15 @@
     <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="d-block w-100" id="carouselimg" src="/media/{{info.0.image}}" alt="First slide">
+                <img class="d-block w-100" id="carouselimg" src="/media/{{cityinf.0.image}}" alt="First slide">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="card mb-1">
+            <div class="card-body">
+                <text class="font-weight-bold">{{cityinf.0.content}}</text>
+                <p class="card-text"><small class="text-muted">Last updated a day ago</small></p>
             </div>
         </div>
     </div>
@@ -70,7 +86,7 @@
                 <h5 class="card-title">Weather Info!</h5>
                 <h6 class="card-subtitle mb-2 text-muted">{{city}}</h6>
                 <h6 class="card-subtitle mb-2 text-muted">{{today}}</h6>
-                <p class="card-text">{{temperature}}</p>
+                <p class="card-text">{{temperature}}°C</p>
                 <p class="card-text">{{description}}</p>
             </div>
         </div>
@@ -85,9 +101,9 @@
                     <div class="card">
                         <img src="/media/{{info.0.image}}" alt="" class="card-img-top">
                         <div class="card-body">
-                            <h5 class="card-title">Best {{info.0.info}}</h5>
+                            <h5 class="card-title" id="info">{{info.0.info}}</h5>
                             <p class="card-text">{{info.0.content}}</p>
-                            <form action="abouthotels" method="POST">{% csrf_token %}
+                            <form action="about{{info.0.info}}" method="POST">{% csrf_token %}
                                 <input type="hidden" id="city_name" value="{{city}}" name="city_name">
                                 <button type="submit" id="btnloc" class="btn btn-primary">Read More</button>
                             </form>
@@ -98,9 +114,9 @@
                     <div class="card">
                         <img src="/media/{{info.1.image}}" alt="" class="card-img-top">
                         <div class="card-body">
-                            <h5 class="card-title">{{info.1.info}}</h5>
+                            <h5 class="card-title" id="info">{{info.1.info}}</h5>
                             <p class="card-text">{{info.1.content}}</p>
-                            <form action="aboutplaces" method="POST">{% csrf_token %}
+                            <form action="about{{info.1.info}}" method="POST">{% csrf_token %}
                                 <input type="hidden" id="city_name" value="{{city}}" name="city_name">
                                 <button type="submit" id="btnloc" class="btn btn-primary">Read More</button>
                             </form>
@@ -111,9 +127,9 @@
                     <div class="card">
                         <img src="/media/{{info.2.image}}" alt="" class="card-img-top">
                         <div class="card-body">
-                            <h5 class="card-title">{{info.2.info}}</h5>
+                            <h5 class="card-title" id="info">{{info.2.info}}</h5>
                             <p class="card-text">{{info.2.content}}</p>
-                            <form action="aboutstreetfood" method="POST">{% csrf_token %}
+                            <form action="about{{info.2.info}}" method="POST">{% csrf_token %}
                                 <input type="hidden" id="city_name" value="{{city}}" name="city_name">
                                 <button type="submit" id="btnloc" class="btn btn-primary">Read More</button>
                             </form>

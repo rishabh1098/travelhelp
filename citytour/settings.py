@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'aboutcity',
     'hotels',
     'places',
-    'streetfood'
+    'streetfood',
+    'cities'
 ]
 
 MIDDLEWARE = [
